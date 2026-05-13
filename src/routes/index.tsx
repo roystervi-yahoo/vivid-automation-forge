@@ -135,7 +135,7 @@ function Clock() {
   return (
     <div className="glass-panel px-8 py-3 flex items-center gap-3">
       <div className="pulse-dot" />
-      <span className="digit-font text-2xl neon-text font-bold">{time || "—"</span>
+      <span className="digit-font text-2xl neon-text font-bold">{time || "—"}</span>
     </div>
   );
 }
