@@ -11,6 +11,7 @@ import {
 import cameraFeed from "@/assets/camera-feed.jpg";
 import album from "@/assets/album.jpg";
 import { CardCarousel } from "@/components/CardCarousel";
+import { DevicesConditions, Tile as DCTile } from "@/components/Devices-Conditions";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
@@ -700,19 +701,7 @@ function Dashboard() {
       </header>
 
       {/* DEVICES & CONDITIONS */}
-      <section className="shrink-0">
-        <SectionHeader title="Devices & Conditions" />
-        <div className="grid grid-cols-8 gap-2">
-          {devices.map((d) => <Tile key={d.id} d={d} />)}
-        </div>
-        <div className="grid grid-cols-8 gap-2 mt-2">
-          <StatTile icon={Thermometer} label="Hot Water" value="—" unit="°F" accent="magenta" />
-          <StatTile icon={Zap} label="Energy" value="1.17" unit="kW" accent="amber" footer="tap for details" />
-          <DreameTile />
-          <SaraiyahRoom />
-          <StatTile icon={Droplets} label="Humidity" value="—" unit="%" accent="cyan" />
-        </div>
-      </section>
+      <DevicesConditions />
 
       {/* FEATURED */}
       <section className="flex-1 min-h-0 flex flex-col">
@@ -735,7 +724,7 @@ function Dashboard() {
       {/* QUICK ACTIONS */}
       <section className="shrink-0">
         <div className="grid grid-cols-8 gap-2">
-          {bottomDevices.map((d) => <Tile key={d.id} d={d} />)}
+          {bottomDevices.map((d) => <DCTile key={d.id} d={d} />)}
           <button className="device-tile !p-2.5 flex flex-col items-center justify-center gap-1 border-dashed">
             <Plus className="h-4 w-4 text-primary" />
             <span className="text-[9px] uppercase tracking-widest text-muted-foreground">Add Device</span>
