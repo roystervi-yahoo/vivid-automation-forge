@@ -5,10 +5,12 @@ import {
   DoorOpen, Droplets, Shirt, Wind, Flame, Bot, Thermometer, Gauge,
   Camera, Lock, Shield, Car, Lightbulb, Fan, Plus, Snowflake,
   ChevronLeft, ChevronRight, Minus, Settings, Activity, Zap,
-  SkipBack, SkipForward, Shuffle, Repeat, Sun
+  SkipBack, SkipForward, Shuffle, Repeat, Sun,
+  Tv, Plane, Globe, Box, Cast, AlertTriangle, ShieldCheck
 } from "lucide-react";
 import cameraFeed from "@/assets/camera-feed.jpg";
 import album from "@/assets/album.jpg";
+import { CardCarousel } from "@/components/CardCarousel";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
