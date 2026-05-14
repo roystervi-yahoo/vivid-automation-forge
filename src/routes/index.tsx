@@ -717,11 +717,19 @@ function Dashboard() {
       {/* FEATURED */}
       <section className="flex-1 min-h-0 flex flex-col">
         <SectionHeader title="Featured Controls" />
-        <div className="grid grid-cols-3 gap-3 flex-1 min-h-0">
-          <Volumio />
-          <Thermostat />
-          <CameraCard />
-        </div>
+        <CardCarousel>
+          {[
+            <Volumio key="v" />,
+            <Thermostat key="t" />,
+            <CameraCard key="c" />,
+            <SecurityCard key="s" />,
+            <LiveTVCard key="tv" />,
+            <CryptoCard key="cr" />,
+            <FlightsCard key="f" />,
+            <HydrationCard key="h" />,
+            <SystemCoreCard key="sc" />,
+          ]}
+        </CardCarousel>
       </section>
 
       {/* QUICK ACTIONS */}
