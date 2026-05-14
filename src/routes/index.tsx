@@ -386,6 +386,274 @@ function CameraCard() {
   );
 }
 
+/* ============ Featured Carousel Cards ============ */
+
+function SecurityCard() {
+  return (
+    <div className="glass-panel p-4 flex flex-col h-full">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Lock className="h-3.5 w-3.5 text-primary" />
+          <span className="text-xs font-bold tracking-[0.15em] uppercase neon-text">Security System</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="px-2 py-0.5 rounded-md text-[9px] digit-font bg-[var(--neon-cyan)]/10 border border-[var(--neon-cyan)]/40 text-[var(--neon-cyan)] flex items-center gap-1">
+            <Settings className="h-2.5 w-2.5" /> AUTO-ARM
+          </span>
+          <span className="text-[10px] digit-font text-[var(--neon-cyan)] flex items-center gap-1.5">
+            <span className="pulse-dot" /> DISARMED
+          </span>
+        </div>
+      </div>
+
+      <div className="flex-1 rounded-xl border border-[var(--neon-cyan)]/30 bg-gradient-to-br from-[var(--neon-cyan)]/5 to-transparent flex flex-col items-center justify-center min-h-0 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30" style={{ background: "radial-gradient(circle at 50% 60%, var(--neon-cyan) 0%, transparent 50%)" }} />
+        <AlertTriangle className="h-5 w-5 text-[var(--neon-amber)] mb-1 relative" />
+        <div className="digit-font text-[11px] tracking-[0.2em] text-[var(--neon-amber)] font-bold relative">SYSTEM NOT READY</div>
+        <button className="mt-3 px-4 py-1.5 rounded-md bg-black/30 border border-border text-[10px] uppercase tracking-widest text-foreground/80 hover:border-primary relative">Den Window</button>
+      </div>
+
+      <div className="grid grid-cols-3 gap-2 mt-3">
+        {[{ l: "Home", i: Home }, { l: "Away", i: Plane }, { l: "Disarm", i: Lock }].map((b) => {
+          const Bi = b.i;
+          return (
+            <button key={b.l} className="device-tile !p-2 flex flex-col items-center gap-1 hover:border-[var(--neon-cyan)]/60">
+              <Bi className="h-3.5 w-3.5 text-[var(--neon-cyan)]" />
+              <span className="text-[9px] digit-font tracking-widest text-foreground/80">{b.l.toUpperCase()}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function LiveTVCard() {
+  return (
+    <div className="glass-panel p-4 flex flex-col h-full">
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-destructive animate-pulse" />
+          <span className="text-[10px] uppercase tracking-[0.2em] text-destructive font-bold">LIVE TV</span>
+          <span className="text-xs font-bold tracking-wide neon-text">TLC</span>
+        </div>
+        <div className="flex gap-1">
+          <button className="h-6 w-6 rounded bg-white/5 border border-border flex items-center justify-center"><Cast className="h-3 w-3 text-primary" /></button>
+          <button className="h-6 w-6 rounded bg-white/5 border border-border flex items-center justify-center"><Maximize2 className="h-3 w-3 text-primary" /></button>
+        </div>
+      </div>
+      <div className="relative flex-1 rounded-lg overflow-hidden border border-primary/30 min-h-0 bg-gradient-to-br from-[oklch(0.25_0.08_320)] to-[oklch(0.18_0.06_260)] flex items-center justify-center">
+        <Tv className="h-12 w-12 text-primary/50" />
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent 0, transparent 3px, oklch(0 0 0 / 0.08) 3px, oklch(0 0 0 / 0.08) 4px)" }} />
+        <button className="absolute h-12 w-12 rounded-full bg-[oklch(0.7_0.18_50)] flex items-center justify-center shadow-[0_0_20px_oklch(0.7_0.18_50/0.6)] hover:scale-110 transition">
+          <Play className="h-5 w-5 text-white fill-white" />
+        </button>
+        <div className="absolute bottom-2 left-2 right-2 flex items-end justify-between text-[10px] text-white">
+          <div>
+            <div className="font-bold">One Day in My Body</div>
+            <div className="text-[9px] text-white/70">NEXT · Daddylive</div>
+          </div>
+          <span className="px-1.5 py-0.5 bg-destructive text-white text-[8px] font-bold rounded">TLC</span>
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-2 mt-2">
+        <div className="device-tile !p-2 text-center">
+          <div className="text-[8px] uppercase tracking-widest text-muted-foreground">Channel</div>
+          <div className="digit-font text-[11px] text-[var(--neon-cyan)]">280</div>
+        </div>
+        <div className="device-tile !p-2 text-center">
+          <div className="text-[8px] uppercase tracking-widest text-muted-foreground">Quality</div>
+          <div className="digit-font text-[11px] text-[var(--neon-lime)]">HD</div>
+        </div>
+        <div className="device-tile !p-2 text-center">
+          <div className="text-[8px] uppercase tracking-widest text-muted-foreground">Source</div>
+          <div className="digit-font text-[11px] text-[var(--neon-magenta)]">DDL</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CryptoCard() {
+  const coins = [
+    { n: "Jasmy", p: "$0.006539", c: "-4.69%", up: false },
+    { n: "Shiba", p: "$0.00000629", c: "-1.91%", up: false },
+    { n: "Doge", p: "$0.113429", c: "+3.09%", up: true },
+    { n: "Cronos", p: "$0.075042", c: "-4.11%", up: false },
+    { n: "Algo", p: "$0.118363", c: "-3.24%", up: false },
+    { n: "XRP", p: "$1.43", c: "-0.66%", up: false },
+  ];
+  return (
+    <div className="glass-panel p-4 flex flex-col h-full">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <div className="h-7 w-7 rounded-lg bg-[var(--neon-cyan)]/15 border border-[var(--neon-cyan)]/40 flex items-center justify-center">
+            <Box className="h-3.5 w-3.5 text-[var(--neon-cyan)]" />
+          </div>
+          <div>
+            <div className="text-xs font-bold tracking-[0.15em] uppercase neon-text">Crypto</div>
+            <div className="text-[8px] uppercase tracking-widest text-muted-foreground">Live Market</div>
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="digit-font text-sm text-[var(--neon-lime)] font-bold">$1,219.77</div>
+        </div>
+      </div>
+      <div className="flex-1 min-h-0 overflow-y-auto space-y-1.5 pr-1">
+        {coins.map((c) => (
+          <div key={c.n} className="device-tile !p-2 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className={`h-6 w-6 rounded-full border ${c.up ? "border-[var(--neon-lime)]/40 bg-[var(--neon-lime)]/10" : "border-destructive/30 bg-destructive/5"} flex items-center justify-center text-[8px] font-bold digit-font`}>
+                {c.n[0]}
+              </div>
+              <div>
+                <div className="text-[10px] font-bold text-foreground/90">{c.n}</div>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="digit-font text-[10px] text-foreground/90">{c.p}</div>
+              <div className={`digit-font text-[8px] ${c.up ? "text-[var(--neon-lime)]" : "text-destructive"}`}>{c.c}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="text-center text-[8px] uppercase tracking-widest text-muted-foreground/70 mt-2">Updated · CoinGecko</div>
+    </div>
+  );
+}
+
+function FlightsCard() {
+  return (
+    <div className="glass-panel p-4 flex flex-col h-full">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Plane className="h-3.5 w-3.5 text-primary" />
+          <div>
+            <div className="text-xs font-bold tracking-[0.15em] uppercase neon-text">Flights</div>
+            <div className="text-[9px] digit-font text-muted-foreground tracking-widest">JAX · STX · STT · SKB</div>
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="text-[8px] uppercase tracking-widest text-destructive">API 230/230</div>
+          <div className="h-0.5 w-16 bg-destructive mt-0.5 ml-auto rounded" />
+        </div>
+      </div>
+      <div className="flex-1 rounded-xl border border-destructive/20 bg-gradient-to-br from-destructive/5 to-transparent flex flex-col items-center justify-center min-h-0 relative overflow-hidden">
+        <div className="h-12 w-12 rounded-full bg-destructive/15 border-2 border-destructive/50 flex items-center justify-center mb-2">
+          <span className="block h-0.5 w-6 bg-destructive rotate-45 absolute" />
+          <Plane className="h-5 w-5 text-destructive" />
+        </div>
+        <div className="text-[11px] font-bold text-destructive uppercase tracking-widest">Monthly limit reached</div>
+        <div className="text-[9px] digit-font text-muted-foreground mt-1">Resets 6/1/2026</div>
+      </div>
+      <div className="text-center text-[8px] uppercase tracking-widest text-muted-foreground/70 mt-2">SerpAPI · Google Flights</div>
+    </div>
+  );
+}
+
+function HydrationCard() {
+  return (
+    <div className="glass-panel p-4 flex flex-col h-full">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Droplets className="h-3.5 w-3.5 text-[var(--neon-cyan)]" />
+          <div>
+            <div className="text-xs font-bold tracking-[0.15em] uppercase neon-text">Hydration</div>
+            <div className="text-[9px] uppercase tracking-widest text-muted-foreground">Sprinkler System</div>
+          </div>
+        </div>
+        <span className="px-2 py-0.5 rounded-md text-[9px] digit-font bg-destructive/10 border border-destructive/40 text-destructive flex items-center gap-1">
+          <span className="h-1.5 w-1.5 rounded-full bg-destructive" /> STANDBY
+        </span>
+      </div>
+      <div className="flex-1 flex items-center justify-center min-h-0 relative">
+        <div className="relative w-32 h-32">
+          {[0, 60, 120, 180, 240, 300].map((deg, i) => {
+            const colors = ["var(--neon-cyan)", "var(--neon-amber)", "var(--neon-amber)", "var(--neon-lime)", "var(--neon-magenta)", "var(--neon-violet)"];
+            return (
+              <div
+                key={i}
+                className="absolute h-3 w-3 rounded-full border-2"
+                style={{
+                  borderColor: colors[i],
+                  top: `${50 - 45 * Math.cos((deg * Math.PI) / 180)}%`,
+                  left: `${50 + 45 * Math.sin((deg * Math.PI) / 180)}%`,
+                  transform: "translate(-50%, -50%)",
+                  boxShadow: `0 0 8px ${colors[i]}`,
+                }}
+              />
+            );
+          })}
+          <div className="absolute inset-1/4 rounded-full bg-[var(--neon-cyan)]/20 border-2 border-[var(--neon-cyan)] flex items-center justify-center shadow-[0_0_30px_var(--neon-cyan)]">
+            <Droplets className="h-6 w-6 text-[var(--neon-cyan)]" />
+          </div>
+        </div>
+      </div>
+      <div className="text-center text-[11px] font-bold mt-1">Standby</div>
+      <div className="grid grid-cols-3 gap-1.5 mt-2">
+        <div className="device-tile !p-1.5 text-center">
+          <div className="text-[8px] uppercase tracking-widest text-muted-foreground">Start/Stop</div>
+          <div className="digit-font text-[10px] text-[var(--neon-lime)]">START</div>
+        </div>
+        <div className="device-tile !p-1.5 text-center">
+          <div className="text-[8px] uppercase tracking-widest text-muted-foreground">Zone Left</div>
+          <div className="digit-font text-[10px]">--</div>
+        </div>
+        <div className="device-tile !p-1.5 text-center">
+          <div className="text-[8px] uppercase tracking-widest text-muted-foreground">Power</div>
+          <div className="digit-font text-[10px] text-destructive">STANDBY</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SystemCoreCard() {
+  const nodes = [
+    { i: Car, c: "var(--destructive)", x: 25, y: 20 },
+    { i: Globe, c: "var(--neon-cyan)", x: 80, y: 25 },
+    { i: Box, c: "var(--neon-cyan)", x: 50, y: 35 },
+    { i: Lock, c: "var(--neon-amber)", x: 18, y: 55 },
+    { i: Bot, c: "var(--neon-magenta)", x: 78, y: 65 },
+    { i: Zap, c: "var(--neon-lime)", x: 90, y: 80 },
+  ];
+  return (
+    <div className="glass-panel p-4 flex flex-col h-full relative overflow-hidden">
+      <div className="flex items-center justify-between mb-2 z-10">
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">SYSTEM CORE</span>
+          <span className="text-[9px] digit-font text-[var(--neon-lime)] flex items-center gap-1">
+            <span className="pulse-dot" /> LIVE
+          </span>
+        </div>
+        <div className="digit-font text-lg neon-text font-bold">0.21<span className="text-[10px] ml-0.5">kW</span></div>
+      </div>
+      <div className="relative flex-1 min-h-0">
+        {nodes.map((n, i) => {
+          const Ni = n.i;
+          return (
+            <div
+              key={i}
+              className="absolute h-9 w-9 rounded-full border-2 flex items-center justify-center bg-black/40"
+              style={{ left: `${n.x}%`, top: `${n.y}%`, transform: "translate(-50%, -50%)", borderColor: n.c, boxShadow: `0 0 15px ${n.c}` }}
+            >
+              <Ni className="h-3.5 w-3.5" style={{ color: n.c }} />
+            </div>
+          );
+        })}
+        <div className="absolute h-20 w-20 rounded-full flex items-center justify-center" style={{ left: "55%", top: "65%", transform: "translate(-50%, -50%)", background: "radial-gradient(circle, var(--neon-cyan), oklch(0.6 0.2 200 / 0.4))", boxShadow: "0 0 60px var(--neon-cyan), inset 0 0 20px oklch(1 0 0 / 0.2)" }}>
+          <Home className="h-8 w-8 text-white" />
+        </div>
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.4 }}>
+          {nodes.map((n, i) => (
+            <line key={i} x1="55%" y1="65%" x2={`${n.x}%`} y2={`${n.y}%`} stroke={n.c} strokeWidth="1" strokeDasharray="2 4" />
+          ))}
+        </svg>
+      </div>
+    </div>
+  );
+}
+
 function Dashboard() {
   return (
     <main className="h-screen w-screen p-3 flex flex-col gap-3 overflow-hidden max-w-[1920px] mx-auto">
