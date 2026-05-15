@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   X, Settings, Palette, Database, Info, Save,
   RefreshCw, Trash2, Download, Upload, Wifi,
   Server, Camera, Cpu, Shield, Bell
 } from 'lucide-react'
+import { haService } from '../services/haService'
 
 interface Props {
   onClose: () => void
@@ -59,7 +60,20 @@ export function SettingsPanel({ onClose }: Props) {
   const [theme,         setTheme]         = useState('dark')
   const [saved,         setSaved]         = useState(false)
 
+  const [haUrl,   setHaUrl]   = useState('')
+  const [haToken, setHaToken] = useState('')
+  const [haStatus, setHaStatus] = useState<'unknown' | 'ok' | 'fail'>('unknown')
+
+  useEffect(() => {
+    const cfg = haService.getConfig()
+    setHaUrl(cfg.url)
+    setHaToken(cfg.token)
+    if (cfg.token) haService.ping().then(ok => setHaStatus(ok ? 'ok' : 'fail'))
+  }, [])
+
   const handleSave = () => {
+    haService.setConfig(haUrl, haToken)
+    haService.ping().then(ok => setHaStatus(ok ? 'ok' : 'fail'))
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }
@@ -141,16 +155,34 @@ export function SettingsPanel({ onClose }: Props) {
       case 'connections': return (
         <div>
           <SectionLabel>Home Assistant</SectionLabel>
-          <Row label="HA URL" sub="REST API endpoint">
-            <span className="digit-font text-[11px] text-[var(--neon-cyan)]">192.168.1.8:8123</span>
+          <Row label="HA URL" sub="REST API endpoint (e.g. http://192.168.1.8:8123)">
+            <input
+              type="text"
+              value={haUrl}
+              onChange={e => setHaUrl(e.target.value)}
+              placeholder="http://192.168.1.8:8123"
+              className="digit-font text-[11px] text-[var(--neon-cyan)] bg-black/30 border border-border/60 rounded px-2 py-1 w-64 focus:outline-none focus:border-primary"
+            />
           </Row>
-          <Row label="Token" sub="Long-lived access token">
-            <span className="digit-font text-[11px] text-muted-foreground">••••••••</span>
+          <Row label="Token" sub="Long-lived access token (HA → Profile → Security)">
+            <input
+              type="password"
+              value={haToken}
+              onChange={e => setHaToken(e.target.value)}
+              placeholder="eyJhbGc..."
+              className="digit-font text-[11px] text-muted-foreground bg-black/30 border border-border/60 rounded px-2 py-1 w-64 focus:outline-none focus:border-primary"
+            />
           </Row>
-          <Row label="Status" sub="Connection health">
+          <Row label="Status" sub="Press Save to test connection">
             <div className="flex items-center gap-1.5">
-              <span className="pulse-dot" />
-              <span className="digit-font text-[11px] text-[var(--neon-lime)]">CONNECTED</span>
+              <span className={`pulse-dot ${haStatus === 'ok' ? '' : 'off'}`} />
+              <span className={`digit-font text-[11px] ${
+                haStatus === 'ok'   ? 'text-[var(--neon-lime)]'
+                : haStatus === 'fail' ? 'text-red-400'
+                : 'text-muted-foreground'
+              }`}>
+                {haStatus === 'ok' ? 'CONNECTED' : haStatus === 'fail' ? 'FAILED' : 'UNKNOWN'}
+              </span>
             </div>
           </Row>
 
