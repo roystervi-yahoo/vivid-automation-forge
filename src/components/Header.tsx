@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Home, RefreshCw, Maximize2, Play, Wifi, Battery, Zap, Volume2, Power, Settings } from 'lucide-react'
+import { GitHubSyncStatus } from './GitHubSyncStatus'
 
 function Clock() {
   const [time, setTime] = useState('')
@@ -61,6 +62,7 @@ export function Header({ onSettingsOpen, onESPHomeOpen }: Props) {
       <Clock />
 
       <div className="flex items-center gap-1.5">
+        <GitHubSyncStatus />
         <TBtn icon={RefreshCw} />
         <TBtn icon={Maximize2} />
         <TBtn icon={Play} />
