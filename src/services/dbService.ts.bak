@@ -1,0 +1,67 @@
+const API = import.meta.env.VITE_API_BASE || 'http://192.168.1.4:3001'
+
+const get = async (path: string, fallback: any = null) => {
+  try {
+    const r = await fetch(`${API}${path}`)
+    if (!r.ok) return fallback
+    return await r.json()
+  } catch { return fallback }
+}
+
+const post = async (path: string, data: any) => {
+  try {
+    const r = await fetch(`${API}${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    return r.ok
+  } catch { return false }
+}
+
+// ── Footer Devices ─────────────────────────────────────────────────────────
+export const loadDevices     = () => get('/api/footer-devices', [])
+export const saveDevices     = (d: any) => post('/api/footer-devices', d)
+
+// ── Preferences ────────────────────────────────────────────────────────────
+export const loadPreferences = () => get('/api/settings/preferences', {
+  editMode: false, refreshInterval: 30, notifications: true, autoBackup: true
+})
+export const savePreferences = (p: any) => post('/api/settings/preferences', p)
+
+// ── Theme ──────────────────────────────────────────────────────────────────
+export const loadTheme = () => get('/api/settings/theme', { mode: 'dark' })
+export const saveTheme = (t: any) => post('/api/settings/theme', t)
+
+// ── Portfolio ──────────────────────────────────────────────────────────────
+export const loadPortfolio = () => get('/api/portfolio', null)
+export const savePortfolio = (d: any) => post('/api/portfolio', d)
+
+// ── Backups ────────────────────────────────────────────────────────────────
+export const listBackups   = () => get('/api/backups', [])
+export const createBackup  = (name?: string) => post('/api/backup', { name })
+export const restoreBackup = (file: string, keys: string[] = []) => post('/api/restore-backup', { file, keys })
+export const deleteBackup  = (file: string) => post('/api/backup/delete', { file })
+
+// ── Export / Import ────────────────────────────────────────────────────────
+export const exportAllData = async () => {
+  const r = await fetch(`${API}/api/export`)
+  if (!r.ok) return null
+  const data = await r.json()
+  // trigger download
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+  const url  = URL.createObjectURL(blob)
+  const a    = document.createElement('a')
+  a.href     = url
+  a.download = `dashboard-backup-${new Date().toISOString().split('T')[0]}.json`
+  a.click()
+  URL.revokeObjectURL(url)
+  return data
+}
+export const importAllData = async (file: File) => {
+  const text = await file.text()
+  const data = JSON.parse(text)
+  return post('/api/import', data)
+}
+
+// ── Light Groups ───────────────────────────────────────────────────────────

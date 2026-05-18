@@ -12,7 +12,6 @@ import cameraFeed from "@/assets/camera-feed.jpg";
 import album from "@/assets/album.jpg";
 import { CardCarousel } from "@/components/CardCarousel";
 import { DevicesConditions, Tile as DCTile } from "@/components/Devices-Conditions";
-import { EnergyCard } from "@/components/cards/EnergyCard";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
@@ -709,7 +708,6 @@ function Dashboard() {
         <SectionHeader title="Featured Controls" />
         <CardCarousel>
           {[
-            <EnergyCard key="e" />,
             <Volumio key="v" />,
             <Thermostat key="t" />,
             <CameraCard key="c" />,
